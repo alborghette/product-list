@@ -18,7 +18,14 @@ class ListCoordinator: CoordinatorProtocol {
     
     func start() {
         let viewController = ListViewController.instantiate()
+        viewController.navigationDelegate = self
         self.navigationController.pushViewController(viewController, animated: false)
     }
     
+}
+
+extension ListCoordinator: ListViewControllerNavigationDelegate {
+    func goToProductDetail(byProductId productId: Int) {
+        // todo
+    }
 }
