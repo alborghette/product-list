@@ -8,6 +8,7 @@ target 'ProductList' do
   # Pods for ProductList
   pod 'SwiftLint', '~> 0.38'
   pod 'Kingfisher', '~> 5.13'
+  pod 'ReachabilitySwift', '~> 4.3'
 
   target 'ProductListTests' do
     inherit! :search_paths
