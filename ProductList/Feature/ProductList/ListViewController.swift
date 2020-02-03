@@ -8,30 +8,43 @@
 
 import UIKit
 
+// MARK: - ListViewController Navigation Delegate
+
 protocol ListViewControllerNavigationDelegate: AnyObject {
     func goToProductDetail(byProductId productId: Int)
 }
 
-class ListViewController: UIViewController {
+// MARK: - ListViewController
 
-    static let storyboardId = "ListViewController"
+class ListViewController: UIViewController {
+    
+    // MARK: - IBOutlets
     
     @IBOutlet weak var productListColletionView: UICollectionView!
+    
+    // MARK: - Dependencies
     
     var productListBusiness: ProductListBusinessProtocol = ProductListBusiness()
     weak var navigationDelegate: ListViewControllerNavigationDelegate?
     
+    // MARK: - Properties
+    
     private let cellHeight: CGFloat = 300
     private let collectionViewBorder: CGFloat = 3.0
     private let collectionViewBackgroundColor = UIColor(red: 240/255.0, green: 240/255.0, blue: 240/255.0, alpha: 1)
-    private var productList: ProductList?
+    private var productList: ProductListModel?
+    
+    // MARK: - View Controller Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = "Produtos"
         setupProductListCollectionView()
         requestProductList()
     }
+    
+    // MARK: - Private methods
     
     private func setupProductListCollectionView() {
         productListColletionView.dataSource = self
@@ -70,14 +83,18 @@ class ListViewController: UIViewController {
     }
 }
 
+// MARK: - ViewControllerStoryboard Protocol
+
 extension ListViewController: ViewControllerStoryboardProtocol {
     
-    static func instantiate() -> Self {
-        return UIStoryboard.viewController(from: .main, andViewControllerId: storyboardId)
-    }
+    static var storyboardId: String = "ListViewController"
+    
 }
 
+// MARK: - UICollectionView Delegate FlowLayout Protocol
+
 extension ListViewController: UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let width = (self.view.frame.width - collectionViewBorder) / 2
@@ -85,9 +102,13 @@ extension ListViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // todo...
+        if let productId = productList?.products[indexPath.row].identifier {
+            navigationDelegate?.goToProductDetail(byProductId: productId)
+        }
     }
 }
+
+// MARK: - UICollectionView DataSource
 
 extension ListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

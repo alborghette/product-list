@@ -26,7 +26,7 @@ class ListCollectionViewCell: UICollectionViewCell {
         backgroundColor = .white
     }
     
-    func setupCell(withModel productListItem: ProductListItem) {
+    func setupCell(withModel productListItem: ProductListItemModel) {
         
         if let imageUrl = URL(string: productListItem.imageUrl) {
             imageView.kf.setImage(with: imageUrl)

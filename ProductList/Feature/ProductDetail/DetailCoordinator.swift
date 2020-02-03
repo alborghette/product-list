@@ -1,14 +1,14 @@
 //
-//  MainCoordinator.swift
+//  DetailCoordinator.swift
 //  ProductList
 //
-//  Created by Murilo Alves Alborghette on 01/02/20.
+//  Created by Murilo Alves Alborghette on 02/02/20.
 //  Copyright © 2020 Murilo Alves Alborghette. All rights reserved.
 //
 
 import UIKit
 
-struct MainCoordinator: CoordinatorProtocol {
+class DetailCoordinator: CoordinatorProtocol {
     
     var navigationController: UINavigationController
     
@@ -17,8 +17,9 @@ struct MainCoordinator: CoordinatorProtocol {
     }
     
     func start() {
-        let listCoordinator = ListCoordinator(navigationController: navigationController)
-        listCoordinator.start()
+        let viewController = DetailViewController.instantiate()
+        viewController.hidesBottomBarWhenPushed = true
+        navigationController.pushViewController(viewController, animated: true)
     }
     
 }

@@ -26,6 +26,7 @@ class ListCoordinator: CoordinatorProtocol {
 
 extension ListCoordinator: ListViewControllerNavigationDelegate {
     func goToProductDetail(byProductId productId: Int) {
-        // todo
+        let detailCordinator = DetailCoordinator(navigationController: navigationController)
+        detailCordinator.start()
     }
 }
