@@ -1,5 +1,5 @@
 //
-//  ProductListPrice.swift
+//  ProductListPriceModel.swift
 //  ProductList
 //
 //  Created by Murilo Alves Alborghette on 02/02/20.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ProductListPrice: Decodable {
+struct ProductListPriceModel: Codable {
     
     let installment: String
     let previousPrice: Double

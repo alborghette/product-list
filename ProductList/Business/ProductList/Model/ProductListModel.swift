@@ -1,5 +1,5 @@
 //
-//  ProductList.swift
+//  ProductListModel.swift
 //  ProductList
 //
 //  Created by Murilo Alves Alborghette on 02/02/20.
@@ -8,9 +8,9 @@
 
 import Foundation
 
-struct ProductList: Decodable {
+struct ProductListModel: Codable {
 
-    let products: [ProductListItem]
+    let products: [ProductListItemModel]
     let quantity: Int
 
     private enum CodingKeys: String, CodingKey {

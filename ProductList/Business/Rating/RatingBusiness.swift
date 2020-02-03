@@ -1,5 +1,5 @@
 //
-//  ProductListBusiness.swift
+//  RatingBusiness.swift
 //  ProductList
 //
 //  Created by Murilo Alves Alborghette on 01/02/20.
@@ -8,14 +8,14 @@
 
 import Foundation
 
-// MARK: - Responses
+// MARK: - Response
 
-enum ProductListBusinessResponse {
-    case success(ProductListModel)
-    case failure(ProductListBusinessError)
+enum RatingBusinessResponse {
+    case success(RatingModel)
+    case failure(RatingBusinessError)
 }
 
-enum ProductListBusinessError: Error {
+enum RatingBusinessError: Error {
     case other(Error)
     case badStatus(Int)
     case connectionFail
@@ -23,15 +23,15 @@ enum ProductListBusinessError: Error {
 
 // MARK: - Protocol
 
-protocol ProductListBusinessProtocol {
-    typealias ProductListBusinessCompletion = (ProductListBusinessResponse) -> Void
+protocol RatingBusinessProtocol {
+    typealias RatingBusinessCompletion = (RatingBusinessResponse) -> Void
     
-    func getProductList(completion: @escaping ProductListBusinessCompletion)
+    func getRating(completion: @escaping RatingBusinessCompletion)
 }
 
 // MARK: - Class
 
-class ProductListBusiness: ProductListBusinessProtocol {
+class RatingBusiness: RatingBusinessProtocol {
     
     // MARK: - Properties
     
@@ -45,32 +45,32 @@ class ProductListBusiness: ProductListBusinessProtocol {
     
     // MARK: - Public methods
     
-    func getProductList(completion: @escaping ProductListBusinessCompletion) {
+    func getRating(completion: @escaping RatingBusinessCompletion) {
         
-        network.get(resource: APIUrl.Resource.productList) { response in
+        network.get(resource: APIUrl.Resource.rating) { response in
             
             switch response {
             case .success(let data):
                 do {
-                    let productList = try JSONDecoder().decode(ProductListModel.self, from: data)
-                    completion(.success(productList))
+                    let rating = try JSONDecoder().decode(RatingModel.self, from: data)
+                    completion(.success(rating))
                 } catch {
                     completion(.failure(.other(NSError(withMessage: "Decode error", andCode: 0))))
                 }
             case .failure(let error):
                 
-                var productListBusinessError: ProductListBusinessError
+                var ratingBusinessError: RatingBusinessError
                 
                 switch error {
                 case .badStatus(let statusCode):
-                    productListBusinessError = .badStatus(statusCode)
+                    ratingBusinessError = .badStatus(statusCode)
                 case .connectionFail:
-                    productListBusinessError = .connectionFail
+                    ratingBusinessError = .connectionFail
                 case .other(let customError):
-                    productListBusinessError = .other(customError)
+                    ratingBusinessError = .other(customError)
                 }
                 
-                completion(.failure(productListBusinessError))
+                completion(.failure(ratingBusinessError))
             }
             
         }

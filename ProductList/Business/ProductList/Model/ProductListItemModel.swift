@@ -1,5 +1,5 @@
 //
-//  ProductListItem.swift
+//  ProductListItemModel.swift
 //  ProductList
 //
 //  Created by Murilo Alves Alborghette on 02/02/20.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ProductListItem: Decodable {
+struct ProductListItemModel: Codable {
     
     let identifier: Int
     let name: String
@@ -16,7 +16,7 @@ struct ProductListItem: Decodable {
     let description: String
     let imageUrl: String
     let rating: Int
-    let price: ProductListPrice
+    let price: ProductListPriceModel
 
     private enum CodingKeys: String, CodingKey {
         case identifier = "id"
